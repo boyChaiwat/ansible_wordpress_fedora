@@ -1,0 +1,11 @@
+---
+
+- name: Create a new database
+  mysql_db:
+    name: wordpress
+    state: present
+    login_host: localhost
+    login_port: 3306
+    login_user: root
+    login_password: password
+  with_dict: "{{ databases }}"

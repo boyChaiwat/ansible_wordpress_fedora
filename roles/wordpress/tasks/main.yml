@@ -1,0 +1,4 @@
+---
+
+- include: create_database.yml
+- include: wordpress.yml

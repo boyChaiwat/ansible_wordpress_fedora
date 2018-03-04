@@ -1,0 +1,11 @@
+---
+
+- hosts: localhost
+  user: root
+  sudo: yes
+  roles:
+    - httpd
+    - php7
+    - mysql
+    - mariadb
+    - phpmyadmin

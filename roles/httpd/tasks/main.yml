@@ -1,0 +1,13 @@
+--- 
+- name: Install Apache Web Server
+  dnf: 
+    name: httpd
+    state: present 
+  notify:
+    - Restart Apache
+
+##   remove apache
+#   - name: remove the Apache package
+#     dnf:
+#       name: httpd
+#       state: absent

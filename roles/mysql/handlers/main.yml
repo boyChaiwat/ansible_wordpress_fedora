@@ -1,0 +1,7 @@
+---
+
+-  name: Restart SQL
+   service: 
+     name: mysqld
+     state: started 
+     enabled: True

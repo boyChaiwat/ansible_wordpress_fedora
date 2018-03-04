@@ -1,0 +1,69 @@
+---
+
+- include_vars: ../conf/wpconfig.cfg
+
+- name: download wordpress
+  get_url: url=http://wordpress.org/latest.zip dest=/tmp/latest.zip
+
+- name: create wordpress directory
+  become: yes
+  become_method: sudo
+  file:
+    path: /var/www/wordpress
+    state: directory
+    owner: root
+    group: root
+
+- name: decopress
+  become: yes
+  become_method: sudo
+  unarchive: src=/tmp/latest.zip dest=/var/www/ copy=no
+
+- name: modify virtual host
+  become: yes
+  become_method: sudo
+  lineinfile:
+    dest: /etc/httpd/conf/httpd.conf
+    regexp: 'DocumentRoot'
+    line: '        DocumentRoot /var/www/wordpress'
+
+- name: restart apache
+  become: yes
+  become_method: sudo
+  service:
+    name: httpd
+    state: restarted
+
+- name: create wp-config
+  become: yes
+  become_method: sudo
+  copy: remote_src=True src=/var/www/wordpress/wp-config-sample.php dest=/var/www/wordpress/wp-config.php
+
+- name: edit wp-config
+  become: yes
+  become_method: sudo
+  lineinfile:
+    dest: /var/www/wordpress/wp-config.php
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+  with_items:
+    - { regexp: 'DB_NAME', line: "{{ wpConfigDB }}" }
+    - { regexp: 'DB_USER', line: "{{ wpCondfigUSER }}" }
+    - { regexp: 'DB_PASSWORD', line: "{{ wpConfigPassword }}" }
+
+- name: modify wordpress directory premissions
+  become: yes
+  become_method: sudo
+  file:
+    path: /var/www/wordpress
+    state: directory
+    owner: root
+    group: root
+    recurse: yes
+
+- name: restart apache
+  become: yes
+  become_method: sudo
+  service:
+    name: httpd
+    state: restarted

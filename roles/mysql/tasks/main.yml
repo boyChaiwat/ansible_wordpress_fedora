@@ -1,0 +1,29 @@
+---
+
+- name: Install MySQL 5.7
+  dnf:
+    name: 'https://dev.mysql.com/get/mysql57-community-release-fc27-10.noarch.rpm'
+    state: present
+
+- name: Install Community-mysql
+  dnf: 
+    name: mysql-community-server
+    state: present
+
+- name: Install mysql-server
+  dnf: 
+    name: mysql-server
+    state: present
+
+- name: Install MySQL Python
+  dnf:
+    name: MySQL-python
+    state: present
+
+- name: Install MySQL Connector Python
+  dnf:
+    name: mysql-connector-python
+    state: present
+
+
+

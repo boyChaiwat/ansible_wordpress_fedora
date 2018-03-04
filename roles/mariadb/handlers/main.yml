@@ -1,0 +1,12 @@
+---
+# Handler to handle DB tier notifications
+- name: start mariadb
+  service: 
+    name: mysqld 
+    state: started
+    enabled: yes
+
+- name: restart mariadb
+  service: 
+    name: mysqld 
+    state: restarted

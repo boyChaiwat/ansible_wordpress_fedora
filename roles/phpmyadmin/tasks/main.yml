@@ -1,0 +1,10 @@
+---
+
+
+- name: Install PHP My Admin
+  dnf:
+    name: phpmyadmin
+    state: present
+
+- name: Apache Restart
+  service: name=httpd state=restarted

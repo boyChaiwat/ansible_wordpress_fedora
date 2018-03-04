@@ -1,0 +1,8 @@
+---
+# vars file for create-db-user
+databases:
+  wordpress:
+    name: wordpress
+    user: root
+    userhost: localhost
+    password: password
